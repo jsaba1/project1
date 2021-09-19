@@ -1,0 +1,17 @@
+---
+title: "messingaround"
+output: html_document
+bibliography: my-refs.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+[@R-rmarkdown]
+[@rmarkdown2018]
+
+```{r plot1, height=4, width=5, eval=TRUE, echo=TRUE}
+data(airquality)
+plot(airquality$Ozone ~ airquality$Wind)
+```
