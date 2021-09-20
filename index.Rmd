@@ -1,0 +1,144 @@
+---
+title: "Project 1 Website"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Background
+
+```{r}
+library(tidyverse)
+tuesdata <- tidytuesdayR::tt_load('2020-01-21')
+spotify_songs <- tuesdata$spotify_songs
+glimpse(spotify_songs)
+```
+
+# Part 1: Explore data
+
+1. How many songs are in each genre?
+
+```{r}
+genre <- group_by(spotify_songs, playlist_genre) %>% count()
+genre
+```
+2. What is the average level of energy and acousticness in the latin genre in this dataset?
+
+```{r}
+latin <- filter(spotify_songs, playlist_genre == "latin")
+mean(latin$energy, na.rm = TRUE)
+mean(latin$acousticness, na.rm = TRUE)
+```
+
+3. Calculate the average duration of song (in minutes) across all subgenres. Which subgenre has the longest song on average?
+
+```{r}
+subgenre <- group_by(spotify_songs, playlist_subgenre) %>% summarize(submeans = mean(duration_ms, na.rm = TRUE)) %>% arrange(desc(submeans))
+subgenre
+## Answer: new jack swing has the longest song on average
+```
+
+4. Make two boxplots side-by-side of the danceability of songs stratifying by whether a song has a fast or slow tempo. Define fast tempo as any song that has a tempo above its median value. On average, which songs are more danceable?
+
+```{r}
+slow <- filter(spotify_songs, tempo <= median(tempo, na.rm = TRUE))
+fast <- filter(spotify_songs, tempo > median(tempo, na.rm = TRUE))
+xlabels <- c("slow", "fast")
+boxplot(slow$danceability, fast$danceability,
+        names = xlabels)
+## Answer: on average, slow songs are more danceable
+```
+
+# Part 2: Convert nontidy data into tidy date
+
+```{r}
+library(tidyverse)
+
+## 1. Select only unique distinct rows based on track_name and track_artist
+uniq <- distinct(spotify_songs, track_name, track_artist, .keep_all = TRUE)
+
+## 2. Add a new column called year_released listing just the year that the song was released
+library(lubridate)
+uniq <- mutate(uniq, year_released = format(ymd(uniq$track_album_release_date, truncated = 2), format = "%Y"))
+
+## 3. Keep only songs released on or after 1980
+uniq <- filter(uniq, uniq$year_released >= 1980)
+
+## 4. Add new column with duration of the song in minutes
+uniq <- mutate(uniq, duration_min = duration_ms/60000)
+
+## 5. For each year released, calculate the mean of at least 6 audio features or descriptors
+means_by_year <- group_by(uniq, year_released) %>% 
+        summarize(danceability = mean(danceability, na.rm = TRUE),
+                  energy = mean(energy, na.rm = TRUE),
+                  loudness = mean(loudness, na.rm = TRUE),
+                  speechiness = mean(speechiness, na.rm = TRUE),
+                  valence = mean(valence, na.rm = TRUE),
+                  duration_min = mean(duration_min, na.rm = TRUE)) %>%
+        arrange(desc(year_released))
+
+## 6. Convert to a long dataset with feature and mean_score columns
+means_by_year <- pivot_longer(means_by_year, danceability:duration_min, names_to = "feature", values_to = "mean_score")
+means_by_year
+```
+
+# Part 3: Data visualization
+
+```{r}
+## Use the functions in ggplot2 package to make a scatter plot of the six mean_scores (y-axis) over time (x-axis) with the following features
+## 1. An overall title for the plot and a subtitle summarizing key trends that you found. Also include a caption in the figure with your name.
+## 2. Both the observed points for the mean_score, but also a smoothed non-linear pattern of the trend
+## 3. All six (or more) plots should be shown in the one figure
+## 4. There should be an informative x-axis and y-axis label
+
+g <- ggplot(means_by_year, aes(as.numeric(year_released), as.numeric(mean_score))) + 
+        geom_point(aes(color = feature), size = 1, alpha = 0.5) +
+        labs(title = "Spotify songs through the decades", subtitle = "On average, songs have gotten shorter but louder from 1980 to 2020", x = "Year", y = "Mean score", caption = "Jake Saba") + 
+        facet_wrap(. ~ feature, nrow = 2, ncol = 3) +
+        geom_smooth() +
+        theme_classic() +
+        theme(axis.text.x = element_blank())
+print(g)
+```
+
+# Part 4: Make the worst plot you can!
+
+```{r}
+ggplot(spotify_songs, aes(x = danceability, y = track_popularity)) +
+        geom_rug() +
+        theme_dark() +
+        geom_line(aes(color = playlist_genre)) +
+        geom_violin(aes(color = playlist_subgenre)) +
+        stat_smooth()
+```
+
+
+#### Problems with plot
+* Plotted as a geom_rug() plot which is difficult to interpret
+* Made it theme_dark() which provides poor contrast with the bars of the geom_rug chart
+* Added a geom_line() layer which made a huge squiggly line through the whole plot
+* Colored geom_line() layer stratified by the playlist genre which made an ugly rainbow
+* Added a geom_violin() layer which put a violin plot directly over the rest of the plot
+* Colored geom_violin() layer stratified by subgenre, which made a bunch of violin plots with rainbow colors
+* Added a stat_smooth() layer which placed a blue smooth line through the plot
+
+# Part 5: Make my plot a better plot!
+
+```{r}
+ggplot(spotify_songs, aes(x = danceability, y = track_popularity)) +
+        geom_point(alpha = 0.1) +
+        theme_classic() +
+        geom_smooth() +
+        labs(title = "Song popularity versus danceability", x = "Danceability score", y = "Popularity score", caption = "Danceability appears to be weakly correlated with song popularity")
+```
+
+#### Improvements to plot
+* Removed extraneous geom_line(), geom_violin(), and stat_smooth() layers along with associated color schemes
+* Changed theme_dark() to theme_classic()
+* Changed geom_rug() to geom_point() to generate a scatter plot
+* Set the alpha within geom_point() equal to 0.1 so that dot density could be more easily visualized
+* Added a geom_smooth() layer to visualize if there is any trend
+* Added an informative title and caption
+* Added informative X and Y labels

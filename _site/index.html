@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Project 1 Website</title>
+
+<script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Project 1 Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Project 1</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Project 1 Website</h1>
+
+</div>
+
+
+<div id="background" class="section level1">
+<h1>Background</h1>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──</code></pre>
+<pre><code>## ✓ ggplot2 3.3.5     ✓ purrr   0.3.4
+## ✓ tibble  3.1.3     ✓ dplyr   1.0.7
+## ✓ tidyr   1.1.3     ✓ stringr 1.4.0
+## ✓ readr   2.0.1     ✓ forcats 0.5.1</code></pre>
+<pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>tuesdata &lt;- tidytuesdayR::tt_load(&#39;2020-01-21&#39;)</code></pre>
+<pre><code>## --- Compiling #TidyTuesday Information for 2020-01-21 ----</code></pre>
+<pre><code>## --- There is 1 file available ---</code></pre>
+<pre><code>## --- Starting Download ---</code></pre>
+<pre><code>## 
+##  Downloading file 1 of 1: `spotify_songs.csv`</code></pre>
+<pre><code>## --- Download complete ---</code></pre>
+<pre class="r"><code>spotify_songs &lt;- tuesdata$spotify_songs
+glimpse(spotify_songs)</code></pre>
+<pre><code>## Rows: 32,833
+## Columns: 23
+## $ track_id                 &lt;chr&gt; &quot;6f807x0ima9a1j3VPbc7VN&quot;, &quot;0r7CVbZTWZgbTCYdfa…
+## $ track_name               &lt;chr&gt; &quot;I Don&#39;t Care (with Justin Bieber) - Loud Lux…
+## $ track_artist             &lt;chr&gt; &quot;Ed Sheeran&quot;, &quot;Maroon 5&quot;, &quot;Zara Larsson&quot;, &quot;Th…
+## $ track_popularity         &lt;dbl&gt; 66, 67, 70, 60, 69, 67, 62, 69, 68, 67, 58, 6…
+## $ track_album_id           &lt;chr&gt; &quot;2oCs0DGTsRO98Gh5ZSl2Cx&quot;, &quot;63rPSO264uRjW1X5E6…
+## $ track_album_name         &lt;chr&gt; &quot;I Don&#39;t Care (with Justin Bieber) [Loud Luxu…
+## $ track_album_release_date &lt;chr&gt; &quot;2019-06-14&quot;, &quot;2019-12-13&quot;, &quot;2019-07-05&quot;, &quot;20…
+## $ playlist_name            &lt;chr&gt; &quot;Pop Remix&quot;, &quot;Pop Remix&quot;, &quot;Pop Remix&quot;, &quot;Pop R…
+## $ playlist_id              &lt;chr&gt; &quot;37i9dQZF1DXcZDD7cfEKhW&quot;, &quot;37i9dQZF1DXcZDD7cf…
+## $ playlist_genre           &lt;chr&gt; &quot;pop&quot;, &quot;pop&quot;, &quot;pop&quot;, &quot;pop&quot;, &quot;pop&quot;, &quot;pop&quot;, &quot;po…
+## $ playlist_subgenre        &lt;chr&gt; &quot;dance pop&quot;, &quot;dance pop&quot;, &quot;dance pop&quot;, &quot;dance…
+## $ danceability             &lt;dbl&gt; 0.748, 0.726, 0.675, 0.718, 0.650, 0.675, 0.4…
+## $ energy                   &lt;dbl&gt; 0.916, 0.815, 0.931, 0.930, 0.833, 0.919, 0.8…
+## $ key                      &lt;dbl&gt; 6, 11, 1, 7, 1, 8, 5, 4, 8, 2, 6, 8, 1, 5, 5,…
+## $ loudness                 &lt;dbl&gt; -2.634, -4.969, -3.432, -3.778, -4.672, -5.38…
+## $ mode                     &lt;dbl&gt; 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, …
+## $ speechiness              &lt;dbl&gt; 0.0583, 0.0373, 0.0742, 0.1020, 0.0359, 0.127…
+## $ acousticness             &lt;dbl&gt; 0.10200, 0.07240, 0.07940, 0.02870, 0.08030, …
+## $ instrumentalness         &lt;dbl&gt; 0.00e+00, 4.21e-03, 2.33e-05, 9.43e-06, 0.00e…
+## $ liveness                 &lt;dbl&gt; 0.0653, 0.3570, 0.1100, 0.2040, 0.0833, 0.143…
+## $ valence                  &lt;dbl&gt; 0.518, 0.693, 0.613, 0.277, 0.725, 0.585, 0.1…
+## $ tempo                    &lt;dbl&gt; 122.036, 99.972, 124.008, 121.956, 123.976, 1…
+## $ duration_ms              &lt;dbl&gt; 194754, 162600, 176616, 169093, 189052, 16304…</code></pre>
+</div>
+<div id="part-1-explore-data" class="section level1">
+<h1>Part 1: Explore data</h1>
+<ol style="list-style-type: decimal">
+<li>How many songs are in each genre?</li>
+</ol>
+<pre class="r"><code>genre &lt;- group_by(spotify_songs, playlist_genre) %&gt;% count()
+genre</code></pre>
+<pre><code>## # A tibble: 6 × 2
+## # Groups:   playlist_genre [6]
+##   playlist_genre     n
+##   &lt;chr&gt;          &lt;int&gt;
+## 1 edm             6043
+## 2 latin           5155
+## 3 pop             5507
+## 4 r&amp;b             5431
+## 5 rap             5746
+## 6 rock            4951</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>What is the average level of energy and acousticness in the latin genre in this dataset?</li>
+</ol>
+<pre class="r"><code>latin &lt;- filter(spotify_songs, playlist_genre == &quot;latin&quot;)
+mean(latin$energy, na.rm = TRUE)</code></pre>
+<pre><code>## [1] 0.7083125</code></pre>
+<pre class="r"><code>mean(latin$acousticness, na.rm = TRUE)</code></pre>
+<pre><code>## [1] 0.2109204</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Calculate the average duration of song (in minutes) across all subgenres. Which subgenre has the longest song on average?</li>
+</ol>
+<pre class="r"><code>subgenre &lt;- group_by(spotify_songs, playlist_subgenre) %&gt;% summarize(submeans = mean(duration_ms, na.rm = TRUE)) %&gt;% arrange(desc(submeans))
+subgenre</code></pre>
+<pre><code>## # A tibble: 24 × 2
+##    playlist_subgenre         submeans
+##    &lt;chr&gt;                        &lt;dbl&gt;
+##  1 new jack swing             275129.
+##  2 classic rock               256667.
+##  3 album rock                 255363.
+##  4 progressive electro house  254006.
+##  5 southern hip hop           247029.
+##  6 permanent wave             244211.
+##  7 hard rock                  239897.
+##  8 neo soul                   239198.
+##  9 electropop                 235877.
+## 10 urban contemporary         228450.
+## # … with 14 more rows</code></pre>
+<pre class="r"><code>## Answer: new jack swing has the longest song on average</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Make two boxplots side-by-side of the danceability of songs stratifying by whether a song has a fast or slow tempo. Define fast tempo as any song that has a tempo above its median value. On average, which songs are more danceable?</li>
+</ol>
+<pre class="r"><code>slow &lt;- filter(spotify_songs, tempo &lt;= median(tempo, na.rm = TRUE))
+fast &lt;- filter(spotify_songs, tempo &gt; median(tempo, na.rm = TRUE))
+xlabels &lt;- c(&quot;slow&quot;, &quot;fast&quot;)
+boxplot(slow$danceability, fast$danceability,
+        names = xlabels)</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<pre class="r"><code>## Answer: on average, slow songs are more danceable</code></pre>
+</div>
+<div id="part-2-convert-nontidy-data-into-tidy-date" class="section level1">
+<h1>Part 2: Convert nontidy data into tidy date</h1>
+<pre class="r"><code>library(tidyverse)
+
+## 1. Select only unique distinct rows based on track_name and track_artist
+uniq &lt;- distinct(spotify_songs, track_name, track_artist, .keep_all = TRUE)
+
+## 2. Add a new column called year_released listing just the year that the song was released
+library(lubridate)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;lubridate&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     date, intersect, setdiff, union</code></pre>
+<pre class="r"><code>uniq &lt;- mutate(uniq, year_released = format(ymd(uniq$track_album_release_date, truncated = 2), format = &quot;%Y&quot;))
+
+## 3. Keep only songs released on or after 1980
+uniq &lt;- filter(uniq, uniq$year_released &gt;= 1980)
+
+## 4. Add new column with duration of the song in minutes
+uniq &lt;- mutate(uniq, duration_min = duration_ms/60000)
+
+## 5. For each year released, calculate the mean of at least 6 audio features or descriptors
+means_by_year &lt;- group_by(uniq, year_released) %&gt;% 
+        summarize(danceability = mean(danceability, na.rm = TRUE),
+                  energy = mean(energy, na.rm = TRUE),
+                  loudness = mean(loudness, na.rm = TRUE),
+                  speechiness = mean(speechiness, na.rm = TRUE),
+                  valence = mean(valence, na.rm = TRUE),
+                  duration_min = mean(duration_min, na.rm = TRUE)) %&gt;%
+        arrange(desc(year_released))
+
+## 6. Convert to a long dataset with feature and mean_score columns
+means_by_year &lt;- pivot_longer(means_by_year, danceability:duration_min, names_to = &quot;feature&quot;, values_to = &quot;mean_score&quot;)
+means_by_year</code></pre>
+<pre><code>## # A tibble: 246 × 3
+##    year_released feature      mean_score
+##    &lt;chr&gt;         &lt;chr&gt;             &lt;dbl&gt;
+##  1 2020          danceability      0.667
+##  2 2020          energy            0.673
+##  3 2020          loudness         -6.88 
+##  4 2020          speechiness       0.115
+##  5 2020          valence           0.471
+##  6 2020          duration_min      3.24 
+##  7 2019          danceability      0.674
+##  8 2019          energy            0.697
+##  9 2019          loudness         -6.46 
+## 10 2019          speechiness       0.115
+## # … with 236 more rows</code></pre>
+</div>
+<div id="part-3-data-visualization" class="section level1">
+<h1>Part 3: Data visualization</h1>
+<pre class="r"><code>## Use the functions in ggplot2 package to make a scatter plot of the six mean_scores (y-axis) over time (x-axis) with the following features
+## 1. An overall title for the plot and a subtitle summarizing key trends that you found. Also include a caption in the figure with your name.
+## 2. Both the observed points for the mean_score, but also a smoothed non-linear pattern of the trend
+## 3. All six (or more) plots should be shown in the one figure
+## 4. There should be an informative x-axis and y-axis label
+
+g &lt;- ggplot(means_by_year, aes(as.numeric(year_released), as.numeric(mean_score))) + 
+        geom_point(aes(color = feature), size = 1, alpha = 0.5) +
+        labs(title = &quot;Spotify songs through the decades&quot;, subtitle = &quot;On average, songs have gotten shorter but louder from 1980 to 2020&quot;, x = &quot;Year&quot;, y = &quot;Mean score&quot;, caption = &quot;Jake Saba&quot;) + 
+        facet_wrap(. ~ feature, nrow = 2, ncol = 3) +
+        geom_smooth() +
+        theme_classic() +
+        theme(axis.text.x = element_blank())
+print(g)</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+</div>
+<div id="part-4-make-the-worst-plot-you-can" class="section level1">
+<h1>Part 4: Make the worst plot you can!</h1>
+<pre class="r"><code>ggplot(spotify_songs, aes(x = danceability, y = track_popularity)) +
+        geom_rug() +
+        theme_dark() +
+        geom_line(aes(color = playlist_genre)) +
+        geom_violin(aes(color = playlist_subgenre)) +
+        stat_smooth()</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;gam&#39; and formula &#39;y ~ s(x, bs = &quot;cs&quot;)&#39;</code></pre>
+<pre><code>## Warning: position_dodge requires non-overlapping x intervals</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<div id="problems-with-plot" class="section level4">
+<h4>Problems with plot</h4>
+<ul>
+<li>Plotted as a geom_rug() plot which is difficult to interpret</li>
+<li>Made it theme_dark() which provides poor contrast with the bars of the geom_rug chart</li>
+<li>Added a geom_line() layer which made a huge squiggly line through the whole plot</li>
+<li>Colored geom_line() layer stratified by the playlist genre which made an ugly rainbow</li>
+<li>Added a geom_violin() layer which put a violin plot directly over the rest of the plot</li>
+<li>Colored geom_violin() layer stratified by subgenre, which made a bunch of violin plots with rainbow colors</li>
+<li>Added a stat_smooth() layer which placed a blue smooth line through the plot</li>
+</ul>
+</div>
+</div>
+<div id="part-5-make-my-plot-a-better-plot" class="section level1">
+<h1>Part 5: Make my plot a better plot!</h1>
+<pre class="r"><code>ggplot(spotify_songs, aes(x = danceability, y = track_popularity)) +
+        geom_point(alpha = 0.1) +
+        theme_classic() +
+        geom_smooth() +
+        labs(title = &quot;Song popularity versus danceability&quot;, x = &quot;Danceability score&quot;, y = &quot;Popularity score&quot;, caption = &quot;Danceability appears to be weakly correlated with song popularity&quot;)</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;gam&#39; and formula &#39;y ~ s(x, bs = &quot;cs&quot;)&#39;</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<div id="improvements-to-plot" class="section level4">
+<h4>Improvements to plot</h4>
+<ul>
+<li>Removed extraneous geom_line(), geom_violin(), and stat_smooth() layers along with associated color schemes</li>
+<li>Changed theme_dark() to theme_classic()</li>
+<li>Changed geom_rug() to geom_point() to generate a scatter plot</li>
+<li>Set the alpha within geom_point() equal to 0.1 so that dot density could be more easily visualized</li>
+<li>Added a geom_smooth() layer to visualize if there is any trend</li>
+<li>Added an informative title and caption</li>
+<li>Added informative X and Y labels</li>
+</ul>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

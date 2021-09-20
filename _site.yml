@@ -1,6 +1,6 @@
-name: "Project 1 Website"
+name: "Project-1-Website"
 navbar:
   title: "Project 1 Website"
   left:
     - text: "Project 1"
-      href: project1.html
+      href: index.html
